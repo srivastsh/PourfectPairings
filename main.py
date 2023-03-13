@@ -35,8 +35,7 @@ def main():
             budget_range = "100+"
         else:
             budget_range = f"{budget}-{budget + 10}"
-        else:
-            budget_range = f"{budget}-{budget + 10}"
+
     elif drink_type == "Cocktail":
         subcategory = st.selectbox("What type of cocktail would you like?",
                                    ["Gin-based", "Vodka-based", "Rum-based", "Tequila-based", "Whiskey-based"])
