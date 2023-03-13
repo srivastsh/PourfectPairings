@@ -1,7 +1,7 @@
 import streamlit as st
 import openai
 
-openai.api_key = os.environ.get("OPENAI_API_KEY")
+openai.api_key = st.secrets["api_key"]
 def generate_flavor_profile(dish_input):
     prompt = (f"Generate a flavor profile for the dish {dish_input}.")
     response = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=100)
