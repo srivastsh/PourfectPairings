@@ -54,6 +54,5 @@ def main():
             pairings = generate_pairings(dish_input, "Any", "Any")
             st.write(pairings)
 
-
 if __name__ == "__main__":
     main()
