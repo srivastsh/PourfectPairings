@@ -10,13 +10,13 @@ def generate_pairings(dish_input, drink_type, subcategory):
             f"Generate 2 wine recommendations for a {subcategory} wine that pair well with a {dish_input} dish. For the first wine, describe why it pairs well with the dish. For the second wine, describe why it pairs well with the dish.")
     elif drink_type == "Cocktail":
         prompt = (
-            f"Generate 2 cocktail recommendations for a {subcategory} cocktail that pairs well with a {dish_input} dish.For the first cocktail, describe why it pairs well with the dish. For the second cocktail, describe why it pairs well with the dish.")
+            f"Generate 2 cocktail recommendations for a {subcategory} cocktail that pairs well with a {dish_input} dish. For the first cocktail, describe why it pairs well with the dish. For the second cocktail, describe why it pairs well with the dish.")
     elif drink_type == "Hard Liquor":
         prompt = (
-            f"Generate 2 hard liquor recommendations for a {subcategory} liquor that pairs well with a {dish_input} dish.")
+            f"Generate 2 hard liquor recommendations for a {subcategory} liquor that pairs well with a {dish_input} dish. For the first liquor, describe why it pairs well with the dish. For the second liquor, describe why it pairs well with the dish.")
     else:
         prompt = (
-            f"Generate a mocktail recommendation for a {subcategory} mocktail that pairs well with a {dish_input} dish.")
+            f"Generate 2 mocktail recommendations for a {subcategory} mocktail that pair well with a {dish_input} dish. For the first mocktail, describe why it pairs well with the dish. For the second mocktail, describe why it pairs well with the dish.")
 
     response = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=200)
     pairings = response.choices[0].text.strip()
