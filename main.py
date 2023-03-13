@@ -46,37 +46,38 @@ def main():
 
     if drink_type == "Wine":
         dish_input = st.text_input("Enter a dish or key ingredients:")
-        wine_preference = st.selectbox("What kind of wine do you prefer?", ["Red", "White", "Rosé"])
-        budget = st.slider("What's your budget for a bottle of wine?", 10, 100, 30)
+        wine_type = st.selectbox("What type of wine do you prefer?", ["Red", "White", "Rose", "Sparkling"])
 
         if st.button("Recommend Wines"):
             flavor_profile = generate_flavor_profile(dish_input)
-            wine_recommendations = generate_wine_recommendations(flavor_profile, wine_preference, budget)
+            wine_recommendations = generate_wine_recommendations(flavor_profile, wine_type)
             st.write(wine_recommendations)
 
-      elif drink_type == "Cocktails":
-dish_input = st.text_input("Enter a dish or key ingredients:")
-liquor_preference = st.selectbox("What kind of liquor do you prefer?", ["Vodka", "Gin", "Rum", "Tequila", "Whiskey"])
+    elif drink_type == "Cocktails":
+        dish_input = st.text_input("Enter a dish or key ingredients:")
+        liquor_preference = st.selectbox("What kind of liquor do you prefer?",
+                                         ["Vodka", "Gin", "Rum", "Tequila", "Whiskey"])
 
-if st.button("Recommend Cocktails"):
-    flavor_profile = generate_flavor_profile(dish_input)
-    cocktail_recommendations = generate_cocktail_recommendations(flavor_profile, liquor_preference)
-    st.write(cocktail_recommendations)
+        if st.button("Recommend Cocktails"):
+            flavor_profile = generate_flavor_profile(dish_input)
+            cocktail_recommendations = generate_cocktail_recommendations(flavor_profile, liquor_preference)
+            st.write(cocktail_recommendations)
 
-elif drink_type == "Hard Liquor":
-    dish_input = st.text_input("Enter a dish or key ingredients:")
-liquor_preference = st.selectbox("What kind of liquor do you prefer?", ["Vodka", "Gin", "Rum", "Tequila", "Whiskey"])
+    elif drink_type == "Hard Liquor":
+        dish_input = st.text_input("Enter a dish or key ingredients:")
+        liquor_preference = st.selectbox("What kind of liquor do you prefer?",
+                                         ["Vodka", "Gin", "Rum", "Tequila", "Whiskey"])
 
-if st.button("Recommend Hard Liquors"):
-    flavor_profile = generate_flavor_profile(dish_input)
-    hard_liquor_recommendations = generate_hard_liquor_recommendations(flavor_profile, liquor_preference)
-    st.write(hard_liquor_recommendations)
+        if st.button("Recommend Hard Liquors"):
+            flavor_profile = generate_flavor_profile(dish_input)
+            hard_liquor_recommendations = generate_hard_liquor_recommendations(flavor_profile, liquor_preference)
+            st.write(hard_liquor_recommendations)
 
-elif drink_type == "Mocktails":
-    dish_input = st.text_input("Enter a dish or key ingredients:")
-base_preference = st.selectbox("What kind of base do you prefer?", ["Soda", "Juice", "Tea"])
+    elif drink_type == "Mocktails":
+        dish_input = st.text_input("Enter a dish or key ingredients:")
+        base_preference = st.selectbox("What kind of base do you prefer?", ["Soda", "Juice", "Tea"])
 
-if st.button("Recommend Mocktails"):
-    flavor_profile = generate_flavor_profile(dish_input)
-    mocktail_recommendations = generate_mocktail_recommendations(flavor_profile, base_preference)
-    st.write(mocktail_recommendations)
+        if st.button("Recommend Mocktails"):
+            flavor_profile = generate_flavor_profile(dish_input)
+            mocktail_recommendations = generate_mocktail_recommendations(flavor_profile, base_preference)
+            st.write(mocktail_recommendations)
