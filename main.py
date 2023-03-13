@@ -2,10 +2,10 @@ import streamlit as st
 import openai
 
 openai.api_key = st.secrets["api_key"]
-def generate_pairings(dish_input, drink_type, subcategory, budget):
+def generate_pairings(dish_input, drink_type, subcategory):
     if drink_type == "Wine":
         prompt = (
-            f"Generate 2 wine recommendations for {subcategory} wine that pair well with a {dish_input} dish, under ${budget} budget. For the first wine, describe why it pairs well with the dish. For the second wine, describe why it pairs well with the dish.")
+            f"Generate 2 wine recommendations for {subcategory} wine that pair well with a {dish_input} dish. For the first wine, describe why it pairs well with the dish. For the second wine, describe why it pairs well with the dish.")
     elif drink_type == "Cocktail":
         prompt = (
             f"Generate 2 cocktail recommendations for {subcategory} cocktail that pairs well with a {dish_input} dish. For the first cocktail, describe why it pairs well with the dish. For the second cocktail, describe why it pairs well with the dish.")
@@ -39,23 +39,21 @@ def main():
         elif drink_type == "Cocktail":
             subcategory = st.selectbox("What type of cocktail would you like?",
                                        ["Any","Gin-based", "Vodka-based", "Rum-based", "Tequila-based", "Whiskey-based"])
-            budget = None
         elif drink_type == "Hard Liquor":
             subcategory = st.selectbox("What type of hard liquor would you like?",
                                        ["Any","Gin", "Vodka", "Rum", "Tequila", "Whiskey"])
-            budget = None
         else:
             subcategory = st.selectbox("What type of mocktail would you like?",
                                        ["Any","Fruity", "Citrusy", "Herbal", "Minty", "Creamy"])
-            budget = None
 
         if st.button("Recommend Pairings"):
-            pairings = generate_pairings(dish_input, drink_type, subcategory, budget)
+            pairings = generate_pairings(dish_input, drink_type, subcategory)
             st.write(pairings)
     else:
         if st.button("Recommend Pairings"):
-            pairings = generate_pairings(dish_input, "Any", "Any", None)
+            pairings = generate_pairings(dish_input, "Any", "Any")
             st.write(pairings)
+
 
 if __name__ == "__main__":
     main()
