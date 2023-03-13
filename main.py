@@ -51,10 +51,10 @@ def main():
 
         if st.button("Recommend Wines"):
             flavor_profile = generate_flavor_profile(dish_input)
-wine_recommendations = generate_wine_recommendations(flavor_profile, wine_preference, budget)
-st.write(wine_recommendations)
+            wine_recommendations = generate_wine_recommendations(flavor_profile, wine_preference, budget)
+            st.write(wine_recommendations)
 
-elif drink_type == "Cocktails":
+      elif drink_type == "Cocktails":
 dish_input = st.text_input("Enter a dish or key ingredients:")
 liquor_preference = st.selectbox("What kind of liquor do you prefer?", ["Vodka", "Gin", "Rum", "Tequila", "Whiskey"])
 
