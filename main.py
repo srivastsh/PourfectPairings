@@ -30,12 +30,11 @@ def main():
     if drink_type != "Any":
         if drink_type == "Wine":
             subcategory = st.selectbox("What type of wine would you like?", ["Any", "Red", "White", "Rosé"])
-            budget = st.slider("What's your budget for a bottle of wine?", 10, 100, 10, step=5)
-            if budget == 100:
+            budget = st.slider("What's your budget for a bottle of wine?", 10, 100, 25, step=5)
+            if budget == st.slider.max:
                 budget_range = "100+"
             else:
-                budget_range = f"{budget}-{budget + 10}"
-
+                budget_range = f"{budget}-{budget + 5}"
         elif drink_type == "Cocktail":
             subcategory = st.selectbox("What type of cocktail would you like?",
                                        ["Any","Gin-based", "Vodka-based", "Rum-based", "Tequila-based", "Whiskey-based"])
