@@ -10,10 +10,10 @@ def generate_pairings(dish_input, drink_type, subcategory):
             f"Generate 2 wine recommendations for a {subcategory} wine that pair well with a {dish_input} dish. For the first wine, describe why it pairs well with the dish. For the second wine, describe why it pairs well with the dish.")
     elif drink_type == "Cocktail":
         prompt = (
-            f"Generate a cocktail recommendation for a {subcategory} cocktail that pairs well with a {dish_input} dish.")
+            f"Generate 2 cocktail recommendations for a {subcategory} cocktail that pairs well with a {dish_input} dish.For the first cocktail, describe why it pairs well with the dish. For the second cocktail, describe why it pairs well with the dish.")
     elif drink_type == "Hard Liquor":
         prompt = (
-            f"Generate a hard liquor recommendation for a {subcategory} liquor that pairs well with a {dish_input} dish.")
+            f"Generate 2 hard liquor recommendations for a {subcategory} liquor that pairs well with a {dish_input} dish.")
     else:
         prompt = (
             f"Generate a mocktail recommendation for a {subcategory} mocktail that pairs well with a {dish_input} dish.")
