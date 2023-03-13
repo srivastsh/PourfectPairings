@@ -4,7 +4,7 @@ import openai
 openai.api_key = st.secrets["api_key"]
 
 
-def generate_pairings(dish_input, drink_type, subcategory):
+def generate_pairings(dish_input, drink_type=None, subcategory=None):
     if drink_type == "Wine":
         prompt = (
             f"Generate 2 wine recommendations for a {subcategory} wine that pair well with a {dish_input} dish. For the first wine, describe why it pairs well with the dish. For the second wine, describe why it pairs well with the dish.")
@@ -14,9 +14,12 @@ def generate_pairings(dish_input, drink_type, subcategory):
     elif drink_type == "Hard Liquor":
         prompt = (
             f"Generate 2 hard liquor recommendations for a {subcategory} liquor that pairs well with a {dish_input} dish. For the first liquor, describe why it pairs well with the dish. For the second liquor, describe why it pairs well with the dish.")
-    else:
+    elif drink_type == "Mocktail":
         prompt = (
             f"Generate 2 mocktail recommendations for a {subcategory} mocktail that pair well with a {dish_input} dish. For the first mocktail, describe why it pairs well with the dish. For the second mocktail, describe why it pairs well with the dish.")
+    else:
+        prompt = (
+            f"Generate a drink recommendation that pairs well with a {dish_input} dish. Describe why it pairs well with the dish.")
 
     response = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=200)
     pairings = response.choices[0].text.strip()
@@ -52,6 +55,5 @@ def main():
         pairings = generate_pairings(dish_input, drink_type, subcategory)
         st.write(pairings)
 
-
-if __name__ == "__main__":
-    main()
+    if st.button("I'm Feeling Lucky"):
+        pair
