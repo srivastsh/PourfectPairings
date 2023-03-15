@@ -34,8 +34,9 @@ def generate_pairings(dish_input, drink_type, subcategory):
 def main():
     st.set_page_config(page_title='PourfectPairings', page_icon=":wine_glass:")
     st.title("Pourfect Pairings")
-    st.title("Pourfect Pairings")
+
     dish_input = st.text_input("Enter a dish or the key ingredients:")
+
     drink_type = st.selectbox("What kind of drink would you like?", ["Any", "Wine", "Cocktail", "Hard Liquor", "Beer", "Mocktail"])
     if drink_type != "Any":
         if drink_type == "Wine":
