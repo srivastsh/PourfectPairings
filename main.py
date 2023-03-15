@@ -1,17 +1,7 @@
 import streamlit as st
 import openai
 
-hide_st_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_st_style, unsafe_allow_html=True)
-
 openai.api_key = st.secrets["api_key"]
-
 def generate_pairings(dish_input, drink_type, subcategory):
     if drink_type == "Wine":
         prompt = (
@@ -35,7 +25,11 @@ def generate_pairings(dish_input, drink_type, subcategory):
 
 
 def main():
-    st.set_page_config(page_title='PourfectPairings', page_icon=":wine_glass:")
+    st.set_page_config(page_title='PourfectPairings', page_icon=":wine_glass:", layout='wide')
+
+    with st.sidebar:
+        st.write("Self-taught DevOps Engineer looking for hire https://srivastsh.com")
+
     st.title("Pourfect Pairings")
 
     dish_input = st.text_input("Enter a dish or the key ingredients:")
@@ -70,8 +64,6 @@ def main():
     if st.button("Recommend Pairings"):
         pairings = generate_pairings(dish_input, drink_type, subcategory)
         st.write(pairings)
-
-    st.write("Self-taught DevOps Engineer looking for hire https://srivastsh.com")
 
 if __name__ == "__main__":
     main()
