@@ -35,7 +35,7 @@ def generate_pairings(dish_input, drink_type, subcategory):
 
 
 def main():
-    st.set_page_config(page_title='PourfectPairings', page_icon="🍷")
+    st.set_page_config(page_title='PourfectPairings', page_icon=":wine_glass:")
     st.title("Pourfect Pairings")
 
     dish_input = st.text_input("Enter a dish or the key ingredients:")
