@@ -10,6 +10,9 @@ hide_st_style = """
 """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
+st.set_page_config(page_title='PourfectPairings', page_icon=":wine_glass:")
+    st.title("Pourfect Pairings")
+
 openai.api_key = st.secrets["api_key"]
 
 def generate_pairings(dish_input, drink_type, subcategory):
@@ -32,8 +35,6 @@ def generate_pairings(dish_input, drink_type, subcategory):
     pairings = response.choices[0].text.strip()
     return pairings
 def main():
-    st.set_page_config(page_title='PourfectPairings', page_icon=":wine_glass:")
-    st.title("Pourfect Pairings")
 
     dish_input = st.text_input("Enter a dish or the key ingredients:")
 
