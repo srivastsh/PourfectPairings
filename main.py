@@ -56,7 +56,7 @@ def main():
         pairings = generate_pairings(dish_input, drink_type, subcategory)
         st.write(pairings)
 
-    st.footer("Self-taught DevOps Engineer looking for hire https://srivastsh.com")
+    st.write("Self-taught DevOps Engineer looking for hire https://srivastsh.com")
 
 if __name__ == "__main__":
     main()
