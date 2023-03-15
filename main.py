@@ -1,6 +1,15 @@
 import streamlit as st
 import openai
 
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
 openai.api_key = st.secrets["api_key"]
 
 def generate_pairings(dish_input, drink_type, subcategory):
