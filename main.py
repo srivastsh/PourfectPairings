@@ -12,7 +12,7 @@ st.markdown(hide_st_style, unsafe_allow_html=True)
 
 openai.api_key = st.secrets["api_key"]
 
- def generate_pairings(dish_input, drink_type, subcategory):
+def generate_pairings(dish_input, drink_type, subcategory):
     if drink_type == "Wine":
         prompt = (
             f"Generate 2 wine recommendations for {subcategory} wine that pair well with a {dish_input} dish. For the first wine, describe why it pairs well with the dish. For the second wine, describe why it pairs well with the dish.")
