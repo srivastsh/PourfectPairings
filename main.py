@@ -3,7 +3,7 @@ import openai
 
 openai.api_key = st.secrets["api_key"]
 
-st.set_page_config(page_title='PourfectPairings', page_icon=":wine_glass:")
+st.set_page_config(page_title='PourfectPairings', page_icon="🍷")
 st.title("Pourfect Pairings")
 
 hide_st_style = """
