@@ -60,6 +60,7 @@ def main():
         if st.button("Recommend Pairings"):
             pairings = generate_pairings(dish_input, "Any", "Any")
             st.write(pairings)
+
 st.write("Self-taught DevOps Engineer looking for hire https://srivastsh.com")
 
 if __name__ == "__main__":
