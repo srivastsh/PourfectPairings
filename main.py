@@ -1,6 +1,11 @@
 import streamlit as st
 import openai
 
+openai.api_key = st.secrets["api_key"]
+
+st.set_page_config(page_title='PourfectPairings', page_icon=":wine_glass:")
+st.title("Pourfect Pairings")
+
 hide_st_style = """
     <style>
         #MainMenu {visibility: hidden;}
@@ -9,12 +14,6 @@ hide_st_style = """
     </style>
 """
 st.markdown(hide_st_style, unsafe_allow_html=True)
-
-st.set_page_config(page_title='PourfectPairings', page_icon=":wine_glass:")
-st.title("Pourfect Pairings")
-
-openai.api_key = st.secrets["api_key"]
-
 def generate_pairings(dish_input, drink_type, subcategory):
     if drink_type == "Wine":
         prompt = (
