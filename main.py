@@ -1,56 +1,18 @@
 import streamlit as st
 import openai
 
-openai.api_key = st.secrets["api_key"]
-st.set_page_config(page_title='PourfectPairings', page_icon=":wine_glass:", layout='wide')
+ hide_st_style = """
+             <style>
+             #MainMenu {visibility: hidden;}
+             footer {visibility: hidden;}
+             header {visibility: hidden;}
+             </style>
+             """
+ st.markdown(hide_st_style, unsafe_allow_html=True)
 
-hide_streamlit_style = """
-<style>
-#MainMenu {visibility: hidden;}
-footer {visibility: visible;}
-header {display: none;}
-.sidebar .sidebar-content {padding-top: 0;}
-</style>
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+ openai.api_key = st.secrets["api_key"]
 
-def main():
-    dish_input = st.text_input("Enter a dish or the key ingredients:")
-
-    drink_type = st.selectbox("What kind of drink would you like?",
-                              ["Any", "Wine", "Cocktail", "Hard Liquor", "Beer", "Mocktail"])
-
-    subcategory = None
-
-    if drink_type != "Any":
-        if drink_type == "Wine":
-            subcategory = st.selectbox("What type of wine would you like?", ["Any", "Red", "White", "Rosé"])
-            budget = st.slider("What's your budget for a bottle of wine?", 10, 100, 25, step=5)
-            if budget == 100:
-                budget_range = "100+"
-            else:
-                budget_range = f"{budget}-{budget + 10}"
-
-        elif drink_type == "Cocktail":
-            subcategory = st.selectbox("What type of cocktail would you like?",
-                                       ["Any", "Gin-based", "Vodka-based", "Rum-based", "Tequila-based",
-                                        "Whiskey-based"])
-        elif drink_type == "Hard Liquor":
-            subcategory = st.selectbox("What type of hard liquor would you like?",
-                                       ["Any", "Gin", "Vodka", "Rum", "Tequila", "Whiskey"])
-        elif drink_type == "Beer":
-            subcategory = st.selectbox("What type of beer would you like?",
-                                       ["Any", "Pale Ale", "IPA", "Stout", "Porter", "Wheat Beer"])
-        else:
-            subcategory = st.selectbox("What type of mocktail would you like?",
-                                       ["Any", "Fruity", "Citrusy", "Herbal", "Minty", "Creamy"])
-    if st.button("Recommend Pairings"):
-        pairings = generate_pairings(dish_input, drink_type, subcategory)
-        st.write(pairings)
-
-    st.write("Self-taught DevOps Engineer looking for hire https://srivastsh.com")
-
-def generate_pairings(dish_input, drink_type, subcategory):
+ def generate_pairings(dish_input, drink_type, subcategory):
     if drink_type == "Wine":
         prompt = (
             f"Generate 2 wine recommendations for {subcategory} wine that pair well with a {dish_input} dish. For the first wine, describe why it pairs well with the dish. For the second wine, describe why it pairs well with the dish.")
@@ -66,11 +28,36 @@ def generate_pairings(dish_input, drink_type, subcategory):
     else:
         prompt = (
             f"Generate 2 drink recommendations for {subcategory} that pair well with a {dish_input} dish. For the first drink, describe why it pairs well with the dish. For the second drink, describe why it pairs well with the dish.")
-
     response = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=200)
     pairings = response.choices[0].text.strip()
     return pairings
-
-
+def main():
+    st.title("Pourfect Pairings")
+    dish_input = st.text_input("Enter a dish or the key ingredients:")
+    drink_type = st.selectbox("What kind of drink would you like?", ["Any", "Wine", "Cocktail", "Hard Liquor", "Beer", "Mocktail"])
+    if drink_type != "Any":
+        if drink_type == "Wine":
+            subcategory = st.selectbox("What type of wine would you like?", ["Any", "Red", "White", "Rosé"])
+            budget = st.slider("What's your budget for a bottle of wine?", 10, 100, 25, step=5)
+            if budget == 100:
+                budget_range = "100+"
+            else:
+                budget_range = f"{budget}-{budget + 10}"
+        elif drink_type == "Cocktail":
+            subcategory = st.selectbox("What type of cocktail would you like?",
+                                       ["Any","Gin-based", "Vodka-based", "Rum-based", "Tequila-based", "Whiskey-based"])
+        elif drink_type == "Hard Liquor":
+            subcategory = st.selectbox("What type of hard liquor would you like?",
+                                       ["Any","Gin", "Vodka", "Rum", "Tequila", "Whiskey"])
+        elif drink_type == "Beer":
+            subcategory = st.selectbox("What type of beer would you like?",
+                                       ["Any","Pale Ale", "IPA", "Stout", "Porter", "Wheat Beer"])
+        else:
+            subcategory = st.selectbox("What type of mocktail would you like?",
+                                       ["Any", "Fruity", "Citrusy", "Herbal", "Minty", "Creamy"])
+    if st.button("Recommend Pairings"):
+        pairings = generate_pairings(dish_input, drink_type, subcategory)
+        st.write(pairings)
+    st.write("Self-taught DevOps Engineer looking for hire https://srivastsh.com")
 if __name__ == "__main__":
     main()
