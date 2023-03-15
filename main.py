@@ -1,7 +1,7 @@
 import streamlit as st
 import openai
 
- hide_st_style = """
+hide_st_style = """
              <style>
              #MainMenu {visibility: hidden;}
              footer {visibility: hidden;}
