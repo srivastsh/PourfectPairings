@@ -2,6 +2,7 @@ import streamlit as st
 import openai
 
 openai.api_key = st.secrets["api_key"]
+
 def generate_pairings(dish_input, drink_type, subcategory):
     if drink_type == "Wine":
         prompt = (
@@ -11,7 +12,10 @@ def generate_pairings(dish_input, drink_type, subcategory):
             f"Generate 2 cocktail recommendations for {subcategory} cocktail that pairs well with a {dish_input} dish. For the first cocktail, describe why it pairs well with the dish. For the second cocktail, describe why it pairs well with the dish.")
     elif drink_type == "Hard Liquor":
         prompt = (
-            f"Generate 2 hard liquor recommendations for {subcategory} liquor that pairs well with a {dish_input} dish. For the first liquor, describe why it pairs well with the dish. For the second liquor, describe why it pairs well with the dish.")
+            f"Generate 2 hard liquor recommendations for {subcategory} liquor that pair well with a {dish_input} dish. For the first liquor, describe why it pairs well with the dish. For the second liquor, describe why it pairs well with the dish.")
+    elif drink_type == "Beer":
+        prompt = (
+            f"Generate 2 beer recommendations for {subcategory} beer that pair well with a {dish_input} dish. For the first beer, describe why it pairs well with the dish. For the second beer, describe why it pairs well with the dish.")
     else:
         prompt = (
             f"Generate 2 drink recommendations for {subcategory} that pair well with a {dish_input} dish. For the first drink, describe why it pairs well with the dish. For the second drink, describe why it pairs well with the dish.")
@@ -19,12 +23,13 @@ def generate_pairings(dish_input, drink_type, subcategory):
     response = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=200)
     pairings = response.choices[0].text.strip()
     return pairings
+
 def main():
     st.title("Pourfect Pairings")
 
     dish_input = st.text_input("Enter a dish or the key ingredients:")
 
-    drink_type = st.selectbox("What kind of drink would you like?", ["Any", "Wine", "Cocktail", "Hard Liquor", "Mocktail"])
+    drink_type = st.selectbox("What kind of drink would you like?", ["Any", "Wine", "Cocktail", "Hard Liquor", "Beer", "Mocktail"])
 
     if drink_type != "Any":
         if drink_type == "Wine":
@@ -41,6 +46,9 @@ def main():
         elif drink_type == "Hard Liquor":
             subcategory = st.selectbox("What type of hard liquor would you like?",
                                        ["Any","Gin", "Vodka", "Rum", "Tequila", "Whiskey"])
+        elif drink_type == "Beer":
+            subcategory = st.selectbox("What type of beer would you like?",
+                                       ["Any","Pale Ale", "IPA", "Stout", "Porter", "Wheat Beer"])
         else:
             subcategory = st.selectbox("What type of mocktail would you like?",
                                        ["Any","Fruity", "Citrusy", "Herbal", "Minty", "Creamy"])
