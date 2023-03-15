@@ -49,19 +49,15 @@ def main():
         elif drink_type == "Beer":
             subcategory = st.selectbox("What type of beer would you like?",
                                        ["Any","Pale Ale", "IPA", "Stout", "Porter", "Wheat Beer"])
-        else:
+            else:
             subcategory = st.selectbox("What type of mocktail would you like?",
-                                       ["Any","Fruity", "Citrusy", "Herbal", "Minty", "Creamy"])
+                                       ["Any", "Fruity", "Citrusy", "Herbal", "Minty", "Creamy"])
 
         if st.button("Recommend Pairings"):
             pairings = generate_pairings(dish_input, drink_type, subcategory)
             st.write(pairings)
-    else:
-        if st.button("Recommend Pairings"):
-            pairings = generate_pairings(dish_input, "Any", "Any")
-            st.write(pairings)
 
-st.write("Self-taught DevOps Engineer looking for hire https://srivastsh.com")
+        st.footer("Self-taught DevOps Engineer looking for hire https://srivastsh.com")
 
-if __name__ == "__main__":
-    main()
+        if __name__ == "__main__":
+            main()
