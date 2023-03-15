@@ -11,7 +11,7 @@ hide_st_style = """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
 st.set_page_config(page_title='PourfectPairings', page_icon=":wine_glass:")
-    st.title("Pourfect Pairings")
+st.title("Pourfect Pairings")
 
 openai.api_key = st.secrets["api_key"]
 
