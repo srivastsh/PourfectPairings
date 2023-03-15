@@ -33,12 +33,16 @@ def generate_pairings(dish_input, drink_type, subcategory):
     pairings = response.choices[0].text.strip()
     return pairings
 
+
 def main():
     st.title("Pourfect Pairings")
 
     dish_input = st.text_input("Enter a dish or the key ingredients:")
 
-    drink_type = st.selectbox("What kind of drink would you like?", ["Any", "Wine", "Cocktail", "Hard Liquor", "Beer", "Mocktail"])
+    drink_type = st.selectbox("What kind of drink would you like?",
+                              ["Any", "Wine", "Cocktail", "Hard Liquor", "Beer", "Mocktail"])
+
+    subcategory = None  # Initialize subcategory to None
 
     if drink_type != "Any":
         if drink_type == "Wine":
@@ -51,13 +55,14 @@ def main():
 
         elif drink_type == "Cocktail":
             subcategory = st.selectbox("What type of cocktail would you like?",
-                                       ["Any","Gin-based", "Vodka-based", "Rum-based", "Tequila-based", "Whiskey-based"])
+                                       ["Any", "Gin-based", "Vodka-based", "Rum-based", "Tequila-based",
+                                        "Whiskey-based"])
         elif drink_type == "Hard Liquor":
             subcategory = st.selectbox("What type of hard liquor would you like?",
-                                       ["Any","Gin", "Vodka", "Rum", "Tequila", "Whiskey"])
+                                       ["Any", "Gin", "Vodka", "Rum", "Tequila", "Whiskey"])
         elif drink_type == "Beer":
             subcategory = st.selectbox("What type of beer would you like?",
-                                       ["Any","Pale Ale", "IPA", "Stout", "Porter", "Wheat Beer"])
+                                       ["Any", "Pale Ale", "IPA", "Stout", "Porter", "Wheat Beer"])
         else:
             subcategory = st.selectbox("What type of mocktail would you like?",
                                        ["Any", "Fruity", "Citrusy", "Herbal", "Minty", "Creamy"])
@@ -66,7 +71,6 @@ def main():
         st.write(pairings)
 
     st.write("Self-taught DevOps Engineer looking for hire https://srivastsh.com")
-
 
 if __name__ == "__main__":
     main()
