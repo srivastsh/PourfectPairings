@@ -52,7 +52,6 @@ def main():
         else:
             subcategory = st.selectbox("What type of mocktail would you like?",
                                        ["Any", "Fruity", "Citrusy", "Herbal", "Minty", "Creamy"])
-
     if st.button("Recommend Pairings"):
         pairings = generate_pairings(dish_input, drink_type, subcategory)
         st.write(pairings)
