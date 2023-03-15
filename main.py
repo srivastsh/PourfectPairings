@@ -2,36 +2,19 @@ import streamlit as st
 import openai
 
 openai.api_key = st.secrets["api_key"]
-def generate_pairings(dish_input, drink_type, subcategory):
-    if drink_type == "Wine":
-        prompt = (
-            f"Generate 2 wine recommendations for {subcategory} wine that pair well with a {dish_input} dish. For the first wine, describe why it pairs well with the dish. For the second wine, describe why it pairs well with the dish.")
-    elif drink_type == "Cocktail":
-        prompt = (
-            f"Generate 2 cocktail recommendations for {subcategory} cocktail that pairs well with a {dish_input} dish. For the first cocktail, describe why it pairs well with the dish. For the second cocktail, describe why it pairs well with the dish.")
-    elif drink_type == "Hard Liquor":
-        prompt = (
-            f"Generate 2 hard liquor recommendations for {subcategory} liquor that pair well with a {dish_input} dish. For the first liquor, describe why it pairs well with the dish. For the second liquor, describe why it pairs well with the dish.")
-    elif drink_type == "Beer":
-        prompt = (
-            f"Generate 2 beer recommendations for {subcategory} beer that pair well with a {dish_input} dish. For the first beer, describe why it pairs well with the dish. For the second beer, describe why it pairs well with the dish.")
-    else:
-        prompt = (
-            f"Generate 2 drink recommendations for {subcategory} that pair well with a {dish_input} dish. For the first drink, describe why it pairs well with the dish. For the second drink, describe why it pairs well with the dish.")
+st.set_page_config(page_title='PourfectPairings', page_icon=":wine_glass:", layout='wide')
 
-    response = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=200)
-    pairings = response.choices[0].text.strip()
-    return pairings
-
+hide_streamlit_style = """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: visible;}
+header {display: none;}
+.sidebar .sidebar-content {padding-top: 0;}
+</style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 def main():
-    st.set_page_config(page_title='PourfectPairings', page_icon=":wine_glass:", layout='wide')
-
-    with st.sidebar:
-        st.write("Self-taught DevOps Engineer looking for hire https://srivastsh.com")
-
-    st.title("Pourfect Pairings")
-
     dish_input = st.text_input("Enter a dish or the key ingredients:")
 
     drink_type = st.selectbox("What kind of drink would you like?",
@@ -64,6 +47,30 @@ def main():
     if st.button("Recommend Pairings"):
         pairings = generate_pairings(dish_input, drink_type, subcategory)
         st.write(pairings)
+
+    st.write("Self-taught DevOps Engineer looking for hire https://srivastsh.com")
+
+def generate_pairings(dish_input, drink_type, subcategory):
+    if drink_type == "Wine":
+        prompt = (
+            f"Generate 2 wine recommendations for {subcategory} wine that pair well with a {dish_input} dish. For the first wine, describe why it pairs well with the dish. For the second wine, describe why it pairs well with the dish.")
+    elif drink_type == "Cocktail":
+        prompt = (
+            f"Generate 2 cocktail recommendations for {subcategory} cocktail that pairs well with a {dish_input} dish. For the first cocktail, describe why it pairs well with the dish. For the second cocktail, describe why it pairs well with the dish.")
+    elif drink_type == "Hard Liquor":
+        prompt = (
+            f"Generate 2 hard liquor recommendations for {subcategory} liquor that pair well with a {dish_input} dish. For the first liquor, describe why it pairs well with the dish. For the second liquor, describe why it pairs well with the dish.")
+    elif drink_type == "Beer":
+        prompt = (
+            f"Generate 2 beer recommendations for {subcategory} beer that pair well with a {dish_input} dish. For the first beer, describe why it pairs well with the dish. For the second beer, describe why it pairs well with the dish.")
+    else:
+        prompt = (
+            f"Generate 2 drink recommendations for {subcategory} that pair well with a {dish_input} dish. For the first drink, describe why it pairs well with the dish. For the second drink, describe why it pairs well with the dish.")
+
+    response = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=200)
+    pairings = response.choices[0].text.strip()
+    return pairings
+
 
 if __name__ == "__main__":
     main()
