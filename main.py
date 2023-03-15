@@ -14,12 +14,11 @@ def generate_pairings(dish_input, drink_type, subcategory):
             f"Generate 2 hard liquor recommendations for {subcategory} liquor that pairs well with a {dish_input} dish. For the first liquor, describe why it pairs well with the dish. For the second liquor, describe why it pairs well with the dish.")
     else:
         prompt = (
-            f"Generate 2 mocktail recommendations for {subcategory} mocktail that pair well with a {dish_input} dish. For the first mocktail, describe why it pairs well with the dish. For the second mocktail, describe why it pairs well with the dish.")
+            f"Generate 2 drink recommendations for {subcategory} that pair well with a {dish_input} dish. For the first drink, describe why it pairs well with the dish. For the second drink, describe why it pairs well with the dish.")
 
     response = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=200)
     pairings = response.choices[0].text.strip()
     return pairings
-
 def main():
     st.title("Pourfect Pairings")
 
