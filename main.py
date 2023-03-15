@@ -49,7 +49,7 @@ def main():
         elif drink_type == "Beer":
             subcategory = st.selectbox("What type of beer would you like?",
                                        ["Any","Pale Ale", "IPA", "Stout", "Porter", "Wheat Beer"])
-            else:
+        else:
             subcategory = st.selectbox("What type of mocktail would you like?",
                                        ["Any", "Fruity", "Citrusy", "Herbal", "Minty", "Creamy"])
 
