@@ -14,9 +14,9 @@ pipeline {
                 script {
                     withCredentials([file(credentialsId: 'PourfectPairings', variable: 'GC_KEY')]) {
                         sh "gcloud auth activate-service-account --key-file ${GC_KEY}"
-                        sh "docker build -t gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest ."
-                        sh "docker push gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest"
                     }
+                    sh "docker build -t gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest ."
+                    sh "docker push gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest"
                 }
             }
         }
@@ -28,6 +28,12 @@ pipeline {
                     sh "gcloud run deploy ${SERVICE_NAME} --image gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest --platform managed --allow-unauthenticated"
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            sh 'rm -f keyfile.json'
         }
     }
 }
