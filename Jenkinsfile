@@ -8,6 +8,11 @@ pipeline {
         REGION = 'us-central1'
     }
 
+    options {
+        // Clean the workspace before the build starts
+        cleanWs()
+    }
+
     stages {
         stage('Build and Push Docker Image') {
             steps {
