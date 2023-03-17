@@ -13,7 +13,8 @@ pipeline {
             steps {
                 script {
                     withCredentials([file(credentialsId: 'PourfectPairingsFile', variable: 'GC_KEY')]) {
-                        sh "gcloud auth activate-service-account --key-file ${GC_KEY}"
+                        sh "cp ${GC_KEY} keyfile.json"
+                        sh "/Users/shagun/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file keyfile.json"
                     }
                     sh "docker build -t gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest ."
                     sh "docker push gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest"
@@ -23,9 +24,9 @@ pipeline {
         stage('Deploy to Cloud Run') {
             steps {
                 script {
-                    sh "gcloud config set run/region ${REGION}"
-                    sh "gcloud config set project ${PROJECT_ID}"
-                    sh "gcloud run deploy ${SERVICE_NAME} --image gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest --platform managed --allow-unauthenticated"
+                    sh "/Users/shagun/google-cloud-sdk/bin/gcloud config set run/region ${REGION}"
+                    sh "/Users/shagun/google-cloud-sdk/bin/gcloud config set project ${PROJECT_ID}"
+                    sh "/Users/shagun/google-cloud-sdk/bin/gcloud run deploy ${SERVICE_NAME} --image gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest --platform managed --allow-unauthenticated"
                 }
             }
         }
