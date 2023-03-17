@@ -129,6 +129,5 @@ def main():
     if st.button("Recommend Pairings"):
         pairings = generate_pairings(dish_input, drink_type, subcategory)
         st.write(pairings)
-    st.write("Self-taught DevOps Engineer looking for hire https://srivastsh.com")
 if __name__ == "__main__":
     main()
