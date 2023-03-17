@@ -6,8 +6,6 @@ openai.api_key = st.secrets["api_key"]
 st.set_page_config(page_title='PourfectPairings', page_icon="🍷")
 st.title("Pourfect Pairings")
 
-st.write("Find the perfect drink pairing for your dish. Enter a dish or key ingredients, select your preferred drink type, and let the app generate a perfect pairing for you.")
-
 hide_st_style = """
     <style>
         #MainMenu {visibility: hidden;}
@@ -37,7 +35,7 @@ def generate_pairings(dish_input, drink_type, subcategory):
     return pairings
 def main():
 
-    dish_input = st.text_input("Enter a dish or the key ingredients (e.g., 'chicken', 'tomatoes'):")
+    dish_input = st.text_input("Enter a dish or the key ingredients:")
 
     drink_type = st.selectbox("What kind of drink would you like?", ["Any", "Wine", "Cocktail", "Hard Liquor", "Beer", "Mocktail"])
     if drink_type != "Any":
@@ -60,10 +58,8 @@ def main():
         else:
             subcategory = st.selectbox("What type of mocktail would you like?",
                                        ["Any", "Fruity", "Citrusy", "Herbal", "Minty", "Creamy"])
-
-            if st.button("Recommend Pairings"):
-                pairings = generate_pairings(dish_input, drink_type, subcategory)
-                st.write(pairings)
-
- if __name__ == "__main__":
+    if st.button("Recommend Pairings"):
+        pairings = generate_pairings(dish_input, drink_type, subcategory)
+        st.write(pairings)
+if __name__ == "__main__":
     main()
