@@ -35,8 +35,7 @@ def generate_pairings(dish_input, drink_type, subcategory):
     pairings = response.choices[0].text.strip()
     return pairings
 def main():
-
-    dish_input = st.text_input("Enter a dish or the key ingredients (e.g., 'chicken', 'tomatoes'):")
+    dish_input = st.text_input("Enter a dish or the key ingredients (e.g., 'chicken', 'tomatoes'):", placeholder="e.g., 'chicken', 'tomatoes'")
 
     drink_type = st.selectbox("What kind of drink would you like?", ["Any", "Wine", "Cocktail", "Hard Liquor", "Beer", "Mocktail"])
     if drink_type != "Any":
