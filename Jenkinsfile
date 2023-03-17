@@ -2,10 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PROJECT_ID = 'pourfectpairings'
-        IMAGE_NAME = 'pourfectpairings-image'
-        SERVICE_NAME = 'pourfectpairings-service'
-        REGION = 'us-central1'
+        CLOUDSDK_CORE_DISABLE_PROMPTS = '1'
     }
 
     stages {
@@ -14,24 +11,26 @@ pipeline {
                 deleteDir()
             }
         }
+
         stage('Build and Push Docker Image') {
             steps {
                 script {
                     withCredentials([file(credentialsId: 'PourfectPairingsFile', variable: 'GC_KEY')]) {
-                        sh "cp ${GC_KEY} keyfile.json"
+                        def keyfileContent = readFile("${GC_KEY}")
+                        writeFile(file: "keyfile.json", text: keyfileContent)
                         sh "/Users/shagun/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file keyfile.json"
                     }
-                    sh "docker build -t gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest ."
-                    sh "docker push gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest"
+
+                    sh "docker build -t gcr.io/pourfect-pairings/pourfect-pairings-backend:latest ."
+                    sh "/Users/shagun/google-cloud-sdk/bin/gcloud docker -- push gcr.io/pourfect-pairings/pourfect-pairings-backend:latest"
                 }
             }
         }
+
         stage('Deploy to Cloud Run') {
             steps {
                 script {
-                    sh "/Users/shagun/google-cloud-sdk/bin/gcloud config set run/region ${REGION}"
-                    sh "/Users/shagun/google-cloud-sdk/bin/gcloud config set project ${PROJECT_ID}"
-                    sh "/Users/shagun/google-cloud-sdk/bin/gcloud run deploy ${SERVICE_NAME} --image gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest --platform managed --allow-unauthenticated"
+                    sh "/Users/shagun/google-cloud-sdk/bin/gcloud run deploy pourfect-pairings-backend --image gcr.io/pourfect-pairings/pourfect-pairings-backend:latest --platform managed --region us-central1 --allow-unauthenticated --memory 1Gi"
                 }
             }
         }
@@ -39,7 +38,7 @@ pipeline {
 
     post {
         always {
-            sh 'rm -f keyfile.json'
+            sh "rm -f keyfile.json"
         }
     }
 }
