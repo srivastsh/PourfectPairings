@@ -12,7 +12,7 @@ pipeline {
         stage('Build and Push Docker Image') {
             steps {
                 script {
-                    withCredentials([file(credentialsId: 'PourfectPairings', variable: 'GC_KEY')]) {
+                    withCredentials([file(credentialsId: 'PourfectPairingsFile', variable: 'GC_KEY')]) {
                         sh "gcloud auth activate-service-account --key-file ${GC_KEY}"
                     }
                     sh "docker build -t gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest ."
