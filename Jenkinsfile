@@ -22,9 +22,10 @@ pipeline {
                     withCredentials([file(credentialsId: 'google-cloud-key', variable: 'GC_KEY')]) {
                         writeFile file: 'keyfile.json', text: readFile(GC_KEY)
                         sh '/Users/shagun/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file keyfile.json'
+                        sh '/Users/shagun/google-cloud-sdk/bin/gcloud auth configure-docker'
                     }
                     sh 'docker build -t gcr.io/${GCLOUD_PROJECT}/${SERVICE_NAME}:latest .'
-                    sh '/Users/shagun/google-cloud-sdk/bin/gcloud docker -- push gcr.io/${GCLOUD_PROJECT}/${SERVICE_NAME}:latest'
+                    sh 'docker push gcr.io/${GCLOUD_PROJECT}/${SERVICE_NAME}:latest'
                 }
             }
         }
