@@ -12,12 +12,11 @@ pipeline {
         stage('Build and Push Docker Image') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'PourfectPairings', variable: 'GC_KEY')]) {
-                        sh "echo '$GC_KEY' > keyfile.json"
-                        sh "gcloud auth activate-service-account --key-file keyfile.json"
+                    withCredentials([file(credentialsId: 'PourfectPairings', variable: 'GC_KEY')]) {
+                        sh "gcloud auth activate-service-account --key-file ${GC_KEY}"
+                        sh "docker build -t gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest ."
+                        sh "docker push gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest"
                     }
-                    sh "docker build -t gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest ."
-                    sh "docker push gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest"
                 }
             }
         }
@@ -34,7 +33,6 @@ pipeline {
 
     post {
         always {
-            sh 'rm -f keyfile.json'
         }
     }
 }
