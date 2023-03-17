@@ -64,5 +64,5 @@ def main():
         pairings = generate_pairings(dish_input, drink_type, subcategory)
         st.write(pairings)
 
-    if __name__ == "__main__":
-        main()
+ if __name__ == "__main__":
+      main()
