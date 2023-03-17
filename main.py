@@ -3,13 +3,10 @@ import openai
 from htbuilder import HtmlElement, div, ul, li, br, hr, a, p, img, styles, classes, fonts
 from htbuilder.units import percent, px
 from htbuilder.funcs import rgba, rgb
-
 def image(src_as_string, **style):
     return img(src=src_as_string, style=styles(**style))
-
 def link(link, text, **style):
     return a(_href=link, _target="_blank", style=styles(**style))(text)
-
 def layout(*args):
     style = """
     <style>
@@ -22,7 +19,7 @@ def layout(*args):
     style_div = styles(
         position="fixed",
         left=0,
-        bottom=0,
+        bottom=px(30),  # Change this value to move the footer up
         margin=px(0, 0, 0, 0),
         width=percent(100),
         color="black",
@@ -58,7 +55,6 @@ def layout(*args):
             body(arg)
 
     st.markdown(str(foot), unsafe_allow_html=True)
-
 def footer():
     myargs = [
         "Made in ",
