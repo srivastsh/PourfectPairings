@@ -1,32 +1,40 @@
 pipeline {
     agent any
 
+    environment {
+        PROJECT_ID = 'pourfectpairings'
+        IMAGE_NAME = 'pourfectpairings-image'
+        SERVICE_NAME = 'pourfectpairings-service'
+        REGION = 'us-central1'
+    }
+
     stages {
         stage('Build and Push Docker Image') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'PourfectPairings', variable: 'GOOGLE_APPLICATION_CREDENTIALS_JSON')]) {
-                        sh 'echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > gcp-key.json'
-                        sh 'gcloud auth activate-service-account --key-file=gcp-key.json'
-                        sh 'gcloud config set project pourfectpairings'
-                        sh 'gcloud auth configure-docker'
-                        sh 'docker build -t gcr.io/pourfectpairings/pourfectpairings .'
-                        sh 'docker push gcr.io/pourfectpairings/pourfectpairings'
+                    withCredentials([string(credentialsId: 'PourfectPairings', variable: 'GC_KEY')]) {
+                        sh "echo '$GC_KEY' > keyfile.json"
+                        sh "gcloud auth activate-service-account --key-file keyfile.json"
                     }
+                    sh "docker build -t gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest ."
+                    sh "docker push gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest"
                 }
             }
         }
         stage('Deploy to Cloud Run') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'PourfectPairings', variable: 'GOOGLE_APPLICATION_CREDENTIALS_JSON')]) {
-                        sh 'echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > gcp-key.json'
-                        sh 'gcloud auth activate-service-account --key-file=gcp-key.json'
-                        sh 'gcloud config set project pourfectpairings'
-                        sh 'gcloud run deploy pourfectpairings --image gcr.io/pourfectpairings/pourfectpairings --platform managed --region us-central1 --allow-unauthenticated'
-                    }
+                    sh "gcloud config set run/region ${REGION}"
+                    sh "gcloud config set project ${PROJECT_ID}"
+                    sh "gcloud run deploy ${SERVICE_NAME} --image gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest --platform managed --allow-unauthenticated"
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            sh 'rm -f keyfile.json'
         }
     }
 }
