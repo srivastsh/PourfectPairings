@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        GCLOUD_PROJECT = 'pourfect-pairings'
+        GCLOUD_PROJECT = 'pourfectpairings'
         SERVICE_NAME = 'pourfect-pairings-backend'
     }
     stages {
